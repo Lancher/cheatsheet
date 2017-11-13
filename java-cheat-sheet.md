@@ -24,8 +24,8 @@ Main-Class: One
 // enum
 enum Color { RED, BLUE, GREEN }
 Color c = Color.RED
-Color arr[] = Color.values()                // .values() return all elements in enum
-c.ordinal()                                 // .ordinal() return index in enum
+Color arr[] = Color.values()                 // .values() return all elements in enum
+c.ordinal()                                  // .ordinal() return index in enum
 
 
 // for loop
@@ -64,7 +64,7 @@ System.out.println(f.toString());           // .toString() in number object
 // characters
 char ch = 'a';
 char uniChar = '\u039A';                    // Unicode for uppercase Greek omega character
-char[] charArray ={ 'a', 'b', 'c', 'd', 'e' }; 
+char[] charArray ={ 'a', 'b', 'c', 'd', 'e' }
 
 
 // strings
@@ -75,53 +75,90 @@ System.out.println(str1 + str2);            // concatenate with +
 
 
 // arrays
-int [] nums = {10, 8, 7, 20, 39, -1};
-int [] nums = new int [] {10, 8, 7, 20, 39, -1};
-int [] nums = new int [6];                  // init with size 6 and all zeros
-nums[1] = 1000;
+int [] nums = {10, 8, 7, 20, 39, -1}
+int [] nums = new int [] {10, 8, 7, 20, 39, -1}
+int [] nums = new int [6]                   // init with size 6 and all zeros
+nums[1] = 1000 
 nums.length                                 // .length
 ```
 
 
 #### Array
 ```
-// initialize
-int [] nums = {10, 8, 7, 20, 39, -1};
-int [] nums = new int [] {10, 8, 7, 20, 39, -1};
-int [] nums = new int [6];
+// array initialize
+int [] nums = {10, 8, 7, 20, 39, -1}
+int [] nums = new int [] {10, 8, 7, 20, 39, -1}
+int [] nums = new int [6]
 
 
-// compare
-int [] arr1 = {1, 2, 3}; 
-int [] arr2 = {1, 2, 3}; 
+// array methods
+int [] arr1 = {1, 2, 3} 
+int [] arr2 = {1, 2, 3}
+int [] arr = {4, 6, 1, 8, 3, 9, 7, 4, 2}
 arr1 == arr2                                // is false
 arr1.equals(arr2)                           // is false
 Arrays.equals(arr1, arr2)                   // is true
 Arrays.deepEquals(arr1, arr2)               // is true, nesting compares
-
-
-// to string
 Arrays.toString(arr1)                       // .toString() covert to string
-
-
-// sort
-int [] arr = {4, 6, 1, 8, 3, 9, 7, 4, 2};
-Array.sort(arr)                            
-Array.sort(arr, 0, 2)                      // sort first 2 elements
-int idx = Arrays.binarySearch(arr, 9)      // return -1 if not found                             
-
-
-// copy
-int [] cp = Arrays.copyOf(arr, arr.length);
-int [] cp = Arrays.copyOfRange(arr, 1, 5);
-
-
-// fill
+Array.sort(arr)                             // .sort() to sort array                            
+Array.sort(arr, 0, 2)                       // .sort(array, 0, 2) first 2 elements
+int idx = Arrays.binarySearch(arr, 9)       // return -1 if not found                             
+int [] cp = Arrays.copyOf(arr, arr.length)  // return identical new array
+int [] cp = Arrays.copyOfRange(arr, 1, 5)   // return new array from 0 to 4
 Arrays.fill(arr, 0, 3, -1);                 // fill 0 to 2 with -1
 Arrays.fill(arr, -1);                       // fill all elements with -1
 ```
 
+#### String / String Buffer(synchronized) / StringBuilder(not synchronized)
+```
+// string initialize
+String s1 = "HelloWorld";
+String s2 = new String("HelloWorld");
 
+
+// string methods
+s.length()                                  // .length()
+s.charAt(3)                                 // .charAt() return 'l'
+s.substring(3)                              // .substring() return substring form index i
+s.substring(2, 5)                           // .substring() return substring from i to j
+String s3 = s1.concat(s2);                  // .concat() return "HelloWorld"
+int idx = s.indexOf("Share")                // .indexOf() return first occurrence
+int idx = s.indexOf("a",3)                  // .indexOf() return first occurrence from index i
+int idx = s.lastindexOf("a",3)              // .indexOf() return last occurrence
+"abc".equals("abc")                         // .equals() compare two strings
+"abc".equalsIgnoreCase("abc")               // .equalsIgnoreCase() compare two strings
+s1.compareTo(s2)                            // .compareTo() compare with lexicographically return 0, 1, -1
+s.toLowerCase()                             // .toLowerCase() to lower
+s.toUpperCase()                             // .toUpperCase() to upper
+s.trim()                                    // .trim() return string by removing whitespaces at both ends
+s.replace('a', 'b')                         // .replace() return string by replacing all occurrences of oldChar with newChar.
+String str3 = String.valueOf(1234)          // convert int to string
+int i = Integer.parseInt("+20")             // convert string to int
+String [] arrOfStr = str.split("@", 2)      // limit to array length with 2
+
+
+// string buffer initialize
+StringBuffer s = new StringBuffer()         // default is 16 characters
+StringBuffer s = new StringBuffer(20)       // init with 20 size
+StringBuffer s = new StringBuffer("Hello")  // init with String
+
+
+// string buffer methods
+.length()                                   // current length of string
+.capacity()                                 // total allocation
+s.append("~~")                              // .append(), append string to the end
+s.insert(5, "~~")                           // .insert(), insert string at index 5
+s.reverse()                                 // .reverse(), reverse the string in-place
+s.delete(0, 5)                              // delete(), delete from 0 to 4
+s.deleteCharAt(3)                           // deleteCharAt(), delete at character at index
+s.replace(5, 8, "~~~")                      // replace(), replace with string
+
+
+// string compares
+s.equals("Hello")                           // compare values
+s == "Hello"                                // compare references
+s.compareTo("Hello")                        // .compareTo() compare with lexicographically return 0, 1, -1
+```
 
 
 
