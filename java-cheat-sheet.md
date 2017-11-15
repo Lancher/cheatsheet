@@ -1,4 +1,4 @@
-#### Run and Compile .java
+### Run .java and compress .jar
 ```
 >> javac One.java                           // create One.class
 >> java One                                 // run bytecode One.class
@@ -19,7 +19,7 @@ public class One {
 Main-Class: One
 ```
 
-#### Basics
+### Data Types 
 ```
 // enum
 enum Color { RED, BLUE, GREEN }
@@ -27,17 +27,42 @@ Color c = Color.RED
 Color arr[] = Color.values()                 // .values() return all elements in enum
 c.ordinal()                                  // .ordinal() return index in enum
 
+// numbers
+int i = 5000;
+float gpa = 13.65;
+double mask = 0xaf;
+Float f = new Float(1.23f);
+System.out.println(f.toString());           // .toString() in number object 
 
+// characters
+char ch = 'a';
+char uniChar = '\u039A';                    // Unicode for uppercase Greek omega character
+char[] charArray ={ 'a', 'b', 'c', 'd', 'e' }
+
+// strings
+String str1 = "Hello";
+String str2 = "World";
+System.out.println(str1.concat(str2));      // .concat()
+System.out.println(str1 + str2);            // concatenate with +
+
+// arrays
+int [] nums = {10, 8, 7, 20, 39, -1}
+int [] nums = new int [] {10, 8, 7, 20, 39, -1}
+int [] nums = new int [6]                   // init with size 6 and all zeros
+nums[1] = 1000 
+nums.length                                 // .length
+```
+
+### Flows 
+```
 // for loop
 int [] nums = {10, 8, 7, 20, 39, -1}
 for (int i = 0; i < nums.length; i++) { System.out.println(nums[i]); } 
 for (int num: nums) { System.out.println(num); } 
 
-
 // while loop
 while (1) { System.out.println("Hello World"); }
 for (;;) { System.out.println("Hello World"); }
-
 
 // switch
 char C = 'B';
@@ -51,45 +76,14 @@ switch (grade) {
  default :
     System.out.println("Invalid grade");
 }
-
-
-// numbers
-int i = 5000;
-float gpa = 13.65;
-double mask = 0xaf;
-Float f = new Float(1.23f);
-System.out.println(f.toString());           // .toString() in number object 
-
-
-// characters
-char ch = 'a';
-char uniChar = '\u039A';                    // Unicode for uppercase Greek omega character
-char[] charArray ={ 'a', 'b', 'c', 'd', 'e' }
-
-
-// strings
-String str1 = "Hello";
-String str2 = "World";
-System.out.println(str1.concat(str2));      // .concat()
-System.out.println(str1 + str2);            // concatenate with +
-
-
-// arrays
-int [] nums = {10, 8, 7, 20, 39, -1}
-int [] nums = new int [] {10, 8, 7, 20, 39, -1}
-int [] nums = new int [6]                   // init with size 6 and all zeros
-nums[1] = 1000 
-nums.length                                 // .length
 ```
 
-
-#### Array
+### Array
 ```
 // array initialize
 int [] nums = {10, 8, 7, 20, 39, -1}
 int [] nums = new int [] {10, 8, 7, 20, 39, -1}
 int [] nums = new int [6]
-
 
 // array methods
 int [] arr1 = {1, 2, 3} 
@@ -109,7 +103,7 @@ Arrays.fill(arr, 0, 3, -1);                 // fill 0 to 2 with -1
 Arrays.fill(arr, -1);                       // fill all elements with -1
 ```
 
-#### String / String Buffer(synchronized) / StringBuilder(not synchronized)
+### String / String Buffer(synchronized) / StringBuilder(not synchronized)
 ```
 // string initialize
 String s1 = "HelloWorld";
@@ -136,16 +130,14 @@ String str3 = String.valueOf(1234)          // convert int to string
 int i = Integer.parseInt("+20")             // convert string to int
 String [] arrOfStr = str.split("@", 2)      // limit to array length with 2
 
-
 // string buffer initialize
 StringBuffer s = new StringBuffer()         // default is 16 characters
 StringBuffer s = new StringBuffer(20)       // init with 20 size
 StringBuffer s = new StringBuffer("Hello")  // init with String
 
-
 // string buffer methods
-.length()                                   // current length of string
-.capacity()                                 // total allocation
+s.length()                                  // current length of string
+s.capacity()                                // total allocation
 s.append("~~")                              // .append(), append string to the end
 s.insert(5, "~~")                           // .insert(), insert string at index 5
 s.reverse()                                 // .reverse(), reverse the string in-place
@@ -153,20 +145,145 @@ s.delete(0, 5)                              // delete(), delete from 0 to 4
 s.deleteCharAt(3)                           // deleteCharAt(), delete at character at index
 s.replace(5, 8, "~~~")                      // replace(), replace with string
 
-
 // string compares
 s.equals("Hello")                           // compare values
 s == "Hello"                                // compare references
 s.compareTo("Hello")                        // .compareTo() compare with lexicographically return 0, 1, -1
+// 
 ```
 
+### Abstract 
+```
+// one abstract method found, then the class must be abstract
+abstract class Base {
+    absract void method ();
+}
 
+// chain abstract class, from Base -> Derived
+abstract class Base {
+    abstract void method ();
+}
+abstract class Derived {
+    abstract void method ();
+}
 
+// Derived is not abstract, he must implement the abstract method
+abstract class Base {
+    abstract void method ();
+    void real_method () { System.out.println("Hello Base"); }
+}
+class Derived {
+    void method () { System.out.println("Hello Derived"); }
+}
+ 
+``` 
 
+### This
+```
+// this access class instances and methods
+class Apple {
+    int a;
+    void method1() { this.a = 100; }
+    void method2() { this.methid1(); }
+}
 
+// this as constructor
+class Apple {
+    int a, b;
+    Apple() { this(10, 30); }
+    Apple(int a, int b) { this.a = a; this.b = b; }
+}
+```
 
+### Super
+```
+// print the 120 
+class Vechile { 
+    int maxSpeed = 120;
+    void message() { System.out.Println("Hello Vechile"); } 
+}
+class Car extend Vechile { 
+    int maxSpeed = 160;
+    void show() { System.out.println(super.maxSpeed); super.message(); } 
+}
 
+// static method can not call non-static memthod.
+// non-static method can not update static variable.
+```
 
+### Final
+```
+// final variables => create constant variables
+// final methods => prevent method overriding
+// final classes => prevent inheritance
+```
+
+### Overload
+```
+// compile time (static) polymorphism
+class Sum {
+    public int sum(int x, int y) { return x + y; }
+    public int sum(int x, int y, int z) { return x + y + z; }
+    public double sum(double x, double y) { return x + y; }
+}
+```
+
+### Override
+```
+// run time (dynamic) polymorphism
+
+// override equals() and toString(), the annotation @Override is not neccessary
+class Complex {
+    private int a, b;
+    
+    @Override 
+    public boolean equals(O) {
+        if (this == o) { return true; }
+        if (!(o instanceof Complex)) { return false; }
+        Complex c = (Complex) o;
+        return this.a == o.a && this.b == o.b;
+    }
+    
+    @Overide
+    public String toString() { return "a is " + this.a + ", b is " + this.b; }
+}
+```
+
+### Constructor
+```
+// default contructor will be created automatically, if no contructor found
+class Test {
+    int a, b;
+} 
+Test t = new Test();
+
+// Copy Contructor
+class Complex {
+    private int a, b;
+    
+    Complex(Complex c) { this.a = c.a; this.b = c.b; }
+    
+    @Overide
+    public String toString() { return "a is " + this.a + ", b is " + this.b; }
+}
+Complex c3 = c2;
+
+// private contructor - singleton
+class Singleton {
+    static Singleton instance = null;
+    private Singleton() {}
+    
+    static public Singleton get_instance() {
+        if (instance == null) instance = new Singleton();
+        return instance;
+    }
+}
+```
+
+### Exception
+```
+
+```
 
 
 
