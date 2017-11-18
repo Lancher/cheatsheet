@@ -297,7 +297,7 @@ class Car extend Vechile {
 ```
 
 ### Overload
-```
+```java
 // compile time (static) polymorphism
 class Sum {
     public int sum(int x, int y) { return x + y; }
