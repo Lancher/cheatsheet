@@ -152,6 +152,39 @@ s.compareTo("Hello")                        // .compareTo() compare with lexicog
 // 
 ```
 
+### Class
+```
+// class nested in class, nested class can access all instances in outer scopes.
+class OuterClass { 
+    static int outer_x = 10;
+    int outer_y = 20;
+    private int outer_private = 30;
+     
+    class InnerClass {
+        void display() {
+            System.out.println("outer_x = " + outer_x);
+            System.out.println("outer_y = " + outer_y);
+            System.out.println("outer_private = " + outer_private);
+        }
+    }
+}
+
+// static class nested in class,  staitc nested class can only access staitc instances in outer scopes.
+class OuterClass { 
+    static int outer_x = 10;
+    int outer_y = 20;
+    private static int outer_private = 30;
+     
+    static class StaticNestedClass {
+        void display() {
+            System.out.println("outer_x = " + outer_x);
+            System.out.println("outer_private = " + outer_private);
+            // System.out.println("outer_y = " + outer_y);         
+        }
+    }
+}
+```
+
 ### Abstract 
 ```
 // one abstract method found, then the class must be abstract
@@ -176,7 +209,52 @@ class Derived {
     void method () { System.out.println("Hello Derived"); }
 }
  
+ 
+// abstract class can have both abstract and concrete methods
+// abstract class can have protected and public abstract methods
+// abstract class can have static, final or static final variable with any access specifier
 ``` 
+
+### Interface
+```
+// class must implement all abstract methods in interface
+interface in1 {
+    final int a = 10; 
+    void display();
+}
+class testClass implements in1 {
+    public void display() {
+        System.out.println("Geek");
+    }
+}
+
+// multiple inheritance only in interface not in abstract
+interface Interface1 { 
+    default void show () { System.out.println("Default 1"); }
+}
+interface Interface2 { 
+    default void show () { System.out.println("Default 2"); }
+}
+class MyClass implements Interface1, Interface2 {
+    public void show { Interface1.super.show(); Interface2.super.show(); }
+}
+
+// anonymous inner class
+interface Age {
+	int x = 21;
+	void getAge();
+}
+Age oj1 = new Age() {
+    @Override
+    public void getAge() { System.out.print("Age is "+x); }
+};
+oj1.getAge();
+
+// interface can only extend another interface
+// interface can have only abstract methods
+// interface can have only have public abstract methods
+// interface can only have public static final (constant) variable
+```
 
 ### This
 ```
@@ -282,6 +360,43 @@ class Singleton {
 
 ### Exception
 ```
+// catch and print exception 
+try { int a = 20 / 0; }
+catch (Exception e) { e.printStackTrace(); Sysytem.out.println(e); }
+finally { System.out.println(e); }
+
+// throw exception
+try { throw new NullPointerException("demo"); }
+catch(NullPointerException e) { System.out.println("Caught inside fun()."); }
+
+// custom exception with passing strings
+class MyException extend Exception {
+    public MyException(String s) {
+        super(s);
+    }
+} 
+```
+
+### MultiThreading
+```
+// extending the Thread class 
+class MyThread extends Thread {
+    public void run() {
+        System.out.println ("Thread " + Thread.currentThread().getId() + " is running"); 
+    }
+}
+MyThread t = new MyThread();
+t.start();
+
+// implementing the Runnable Interface
+class MyThread implements Runnable {
+    public void run() {
+        System.out.println ("Thread " + Thread.currentThread().getId() + " is running"); 
+    }
+}
+Thread t = new Thread(new MyThread());
+t.start();
+
 
 ```
 
