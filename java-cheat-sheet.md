@@ -1,12 +1,12 @@
 ### Run .java and compress .jar
-```
+```bash
 >> javac One.java                           // create One.class
 >> java One                                 // run bytecode One.class
 >> jar -cvfe One.jar One One.class          // create jar file from Main entry
 >> jar -cvfm One.jar Manifest.txt One.class // create jar file from manifest
 >> java -jar One.jar                        // run .jar
 ```
-```
+```java
 // One.java
 public class One {
   public static void main(String [] args) {
@@ -14,7 +14,7 @@ public class One {
   }
 }
 ```
-```
+```txt
 // manifest.txt
 Main-Class: One
 ```
