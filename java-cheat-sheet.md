@@ -20,7 +20,7 @@ Main-Class: One
 ```
 
 ### Data Types 
-```
+```java
 // enum
 enum Color { RED, BLUE, GREEN }
 Color c = Color.RED
@@ -54,7 +54,7 @@ nums.length                                 // .length
 ```
 
 ### Flows 
-```
+```java
 // for loop
 int [] nums = {10, 8, 7, 20, 39, -1}
 for (int i = 0; i < nums.length; i++) { System.out.println(nums[i]); } 
@@ -79,7 +79,7 @@ switch (grade) {
 ```
 
 ### Array
-```
+```java
 // array initialize
 int [] nums = {10, 8, 7, 20, 39, -1}
 int [] nums = new int [] {10, 8, 7, 20, 39, -1}
@@ -104,7 +104,7 @@ Arrays.fill(arr, -1);                       // fill all elements with -1
 ```
 
 ### String / String Buffer(synchronized) / StringBuilder(not synchronized)
-```
+```java
 // string initialize
 String s1 = "HelloWorld";
 String s2 = new String("HelloWorld");
@@ -153,7 +153,7 @@ s.compareTo("Hello")                        // .compareTo() compare with lexicog
 ```
 
 ### Class
-```
+```java
 // class nested in class, nested class can access all instances in outer scopes.
 class OuterClass { 
     static int outer_x = 10;
@@ -186,7 +186,7 @@ class OuterClass {
 ```
 
 ### Abstract 
-```
+```java
 // one abstract method found, then the class must be abstract
 abstract class Base {
     absract void method ();
@@ -216,7 +216,7 @@ class Derived {
 ``` 
 
 ### Interface
-```
+```java
 // class must implement all abstract methods in interface
 interface in1 {
     final int a = 10; 
@@ -257,7 +257,7 @@ oj1.getAge();
 ```
 
 ### This
-```
+```java
 // this access class instances and methods
 class Apple {
     int a;
@@ -274,7 +274,7 @@ class Apple {
 ```
 
 ### Super
-```
+```java
 // print the 120 
 class Vechile { 
     int maxSpeed = 120;
@@ -290,7 +290,7 @@ class Car extend Vechile {
 ```
 
 ### Final
-```
+```java
 // final variables => create constant variables
 // final methods => prevent method overriding
 // final classes => prevent inheritance
@@ -307,7 +307,7 @@ class Sum {
 ```
 
 ### Override
-```
+```java
 // run time (dynamic) polymorphism
 
 // override equals() and toString(), the annotation @Override is not neccessary
@@ -328,7 +328,7 @@ class Complex {
 ```
 
 ### Constructor
-```
+```java
 // default contructor will be created automatically, if no contructor found
 class Test {
     int a, b;
@@ -359,7 +359,7 @@ class Singleton {
 ```
 
 ### Exception
-```
+```java
 // catch and print exception 
 try { int a = 20 / 0; }
 catch (Exception e) { e.printStackTrace(); Sysytem.out.println(e); }
@@ -378,7 +378,7 @@ class MyException extend Exception {
 ```
 
 ### MultiThreading
-```
+```java
 // extending the Thread class 
 class MyThread extends Thread {
     public void run() {
