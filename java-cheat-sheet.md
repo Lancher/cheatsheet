@@ -397,12 +397,129 @@ class MyThread implements Runnable {
 Thread t = new Thread(new MyThread());
 t.start();
 
+// sychronized block ensures only one thread running at a time.
+sychronized(this) {}
 
+// set priority for threads (from 1 ~ 10)
+t.setPriority(2);
 ```
 
+### Garbage Collector
+```java
+// 1. Garbage Collector is to free heap memory by destroying unreachable objects.
+// 2. Use `System.gc() ` or `Runtime.getRuntime().gc()` ro run garbage collection.
+// 3. Override the `protected void finalize() throws Throwable` to perform cleanups.
+```
 
+### Collections
+```
+// ArraryList, dynamic array, not synchronized
+ArrayList<Integer> arr = new ArrayList<Integer>(n);
+arrli.add(1);
 
+// LinkedList, double linkedlist
+LinkedList<String> list = new LinkedList<String>();
+list.add("Hello");
+list.add(2, "E");
+list.addLast("C");
+list.addFirst("D");
+list.remove("Hello");
+list.remove(3);
+list.removeFirst();
+list.removeLast();
 
+// Vector, dynamic array, synchronized
+Vector v = new Vector();
+v.add(1);
+v.add(2);
+v.add("geeks");
+v.add("forGeeks");
+
+// Stack
+Stack<Integer> stack = new Stack<Integer>();
+stack.push(1);
+stack.peek();
+stack.pop();
+
+// HashSet
+HashSet<String> s = new HashSet<String>();
+s.add("India");
+s.add("Australia");
+s.add("South Africa");
+s.remove("Australia");
+
+// LinkedHashSet
+LinkedHashSet<String> s = new LinkedHashSet<String>();
+s.add("A");  
+s.add("B");
+
+// TreeSet
+TreeSet s = new TreeSet();
+s.add("A");
+s.add("B");
+s.add("C");
+
+// HashMap, array of linked list
+HashMap<String, Integer> map = new HashMap<>();
+map.put("vishal", 10);
+map.clear();
+
+// LinkedHashMap, doubly-linked bucket
+LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+map.put("one", "practice.geeksforgeeks.org");
+map.put("two", "code.geeksforgeeks.org");
+map.put("four", "quiz.geeksforgeeks.org");
+
+// TreeMap, Red-Black Tree
+TreeMap<Integer, Integer> tmap = new TreeMap<Integer, Integer>();
+map.put("one", "Hello World");
+
+// PriorityQueue
+PriorityQueue<String> pq = new PriorityQueue<String>();
+pq.add("C");
+pq.add("C++");
+pq.add("Java");
+pq.add("Python");
+
+// Deque
+Deque deque = new LinkedList<>();
+deque.add("Element 1 (Tail)"); // add to tail
+deque.addFirst("Element 2 (Head)");
+deque.addLast("Element 3 (Tail)");
+deque.push("Element 4 (Head)"); //add to head
+deque.offer("Element 5 (Tail)");
+deque.offerFirst("Element 6 (Head)");
+deque.offerLast("Element 7 (Tail)");
+```
+
+### Generics
+```java
+// generics class
+class Test<T> {
+    T obj;
+    Test(T obj) { this.obj = obj; }
+    public T getObject()  { return this.obj; }
+}
+
+// generics method
+static <T> void genericDisplay (T element) {
+    System.out.println(element.getClass().getName() + " = " + element);
+}
+```
+
+### Assert
+```java
+assert value >= 20 : " Underweight";
+
+// by default, assertions are disabled
+java –ea Test
+java –da Test
+```
+
+### Annotation
+```java
+
+```
 
 
 
