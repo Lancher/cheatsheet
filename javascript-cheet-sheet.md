@@ -222,7 +222,7 @@ fetchPostById('gzIrzeo64')
 ```
 
 ### static
-```
+```javascript
 class Repo{
   static getName() {
     return "Repo name is modern-js-cheatsheet"
