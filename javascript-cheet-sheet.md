@@ -1,248 +1,207 @@
-### var, let, const
+### Object
 ```javascript
-// let cannot be re-declared.
-// const cannot be re-assigned.
-```
+// simple object
+var o = {firstName: "steve", lastName: "Liu"}
 
-### Arrow function
-```javascript
-// implicit return
-const count_double = (x) => x * 2;
-
-// skip `that = this;`
-function myFunc() {
-  this.myVar = 0;
-  setTimeout(() => {
-    this.myVar++;
-    console.log(this.myVar) // 1
-  }, 0);
-} 
-```
-
-### Default Parameter
-```javascript
-// no parameter provided or undefined parameter provided
-function myFunc(x = 10) {
-  return x;
-}
-```
-
-### Destructuring Objects
-```javascript
-// fetch object properties
-const person = {
-  firstName: "Nick",
-  lastName: "Anderson",
-  age: 35,
-  sex: "M"
-}
-const { age } = person;
-
-// passing person
-function joinFirstLastName({ firstName, lastName }) {
-  return firstName + '-' + lastName;
+// create object - method 1
+var mango = {
+    color: "yellow",
+    getColor: function() {
+        return this.color;
+    }
 }
 
-// destructuring 
-const myArray = ["a", "b", "c"];
-const [x, y] = myArray; // x is "a", y is "b"
+// create object - method 2
+var mango = new Object();
+mango.color = "yellow";
+mango.getColor = function() { return this.color; }
+
+// object constructor - method 1.
+function Fruit(name, color) {
+    this.name = name;
+    this.color = color;
+    this.getName = function() { return this.name; }
+    this.getColor = function() { return this.color; }
+}
+var mango = new Fruit("mango", "yellow");
+
+// object constructor - method 2
+function Fruit() {}
+Fruit.prototype.name = "mango";
+Fruit.prototype.color = "yellow";
+Fruit.prototype.getName = function() { return this.name; };
+Fruit.prototype.getColor = function() { return this.color; };
 ```
 
-### map/filter/reduce
+### In/hasOwnProperty
 ```javascript
-const numbers = [0, 1, 2, 3, 4, 5, 6];
+// `in` also check the parent's poverty
+var school = { schoolName:"MIT" }
+console.log("schoolName" in school);                // true​
+​console.log("schoolType" in school);                // false​
+​console.log("toString" in school);                  // true
 
-// map
-const doubledNumbers = numbers.map(n => n * 2); // [0, 2, 4, 6, 8, 10, 12]
-
-// filter
-const evenNumbers = numbers.filter(n => n % 2 === 0); // [0, 2, 4, 6]
-
-// reduce
-const sum = numbers.reduce((prev, next) => prev + next, 0); // 21
+// `hasOwnProperty` check only current object
+var school = {schoolName:"MIT"};                    
+​console.log(school.hasOwnProperty ("schoolName"));  // true​
+​console.log(school.hasOwnProperty ("toString"));    // false
 ```
 
-### Spread Operator
+### Prototype
 ```javascript
-const arr1 = ["a", "b", "c"];
-const arr2 = [...arr1, "d", "e", "f"]; // ["a", "b", "c", "d", "e", "f"]
+// inheritance
+function Plant() {
+    this.country = "Taiwan";
+    this.organic = true;
+    this.getCountry = function() { return this.country; }
+    this.getOrganic = function() { return this.organic; }
+}
+function Fruit(name, color) {
+    this.name = name;
+    this.color = color;
+    this.getName = function() { return this.name; }
+    this.getColor = function() { return this.color; }
+}
+// inheriting all of Plant.prototype methods and properties.​
+Fruit.prototype = new Plant();
+```
 
-const { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
-console.log(x); // 1
-console.log(y); // 2
-console.log(z); // { a: 3, b: 4 }
+### Closure
+```javascript
+// 1. inner function can access outer function's variables.
+// 2. the outer function must be called.
+
+// Closures have access to the outer function’s variable even after the outer function returns.
+function show() {
+    var intro = "Your name is ";
+    function showName(name) {
+        return intro + name;
+    }
+    return showName;
+}
+var info = show();
+info("Steve");
+
+// Closures store references to the outer function’s variables.
+function ID() {
+    var id = 1213;
+    return {
+        getID: function() {
+          return id;
+        },
+        setID: function(new_id) {
+          id = new_id;
+        }
+    }
+}
+var id = ID();
+id.getID();         // 1213
+id.setID(6666);     // 6666
+id.getID();         // 6666
+
+// Closures Gone Away (because Closures stores reference).
 ``` 
 
-### Promise
-```javascript
-const fetchingPosts = new Promise((res, rej) => {
-  $.get("/posts")
-    .done(posts => res(posts))
-    .fail(err => rej(err));
-});
 
-fetchingPosts
-  .then(posts => console.log(posts))
-  .catch(err => console.log(err));
+### This
+```javascript
+// 1. The property `this` is a variable with the value of the object that invokes the function where this is used.
+// 2. The `this` inside function is not assigned a value until an object call the function.
+
+// `this` refer to window.
+var firstName = "Peter", lastName = "Ally";
+function showFullName () { console.log (this.firstName + " " + this.lastName); }
+showFullName();         // Peter Ally​
+
+// this is refer to $("button"), so cannot read property '0' of undefined
+$ ("button").click (user.clickHandler); 
+$ ("button").click (user.clickHandler.bind(user)); // solution
+
+// this inside the anonymous function cannot access the outer function’s this. 
+var user = {
+  tournament:"The Masters",
+  data:["T. Woods", "P. Mickelson"],
+  clickHandler:function () {
+    this.data.forEach (function (name) {
+        console.log (name + " is playing at " + this.tournament);
+    })
+  }
+}
+user.clickHandler();        // What is "this" referring to? [object Window]
+// Solution: use `that`.
+var user = {
+  tournament:"The Masters",
+  data:["T. Woods", "P. Mickelson"],
+  clickHandler:function () {
+    var that = this;
+    this.data.forEach (function (name) {
+        console.log (name + " is playing at " + that.tournament);
+    })
+  }
+}
 ```
 
-### String Template
+### bind/apply/call
 ```javascript
-const condiment = "jam";
-const meal = "toast";
-highlight`I like ${condiment} on ${meal}.`;
+// bind - function.bind(thisArgv, argv1, argv2, ...)
+this.x = 9;
+var o = { x: 81, getX: function() { return this.x; }};
+var getGlobalX = module.getX;
+getGlobalX();                       // 9
+var getBoundX = getGlobalX.bind(o);
+getBoundX();                        // 81
 
-const snacks = ['apples', 'bananas', 'cherries'];
-comma`I like ${snacks} to snack on.`;
-```
+// bind - partial function
+function list() { return Array.prototype.slice.call(arguments); }
+var leadingThirtysevenList = list.bind(null, 37);
+var list2 = leadingThirtysevenList();               // [37]
+var list3 = leadingThirtysevenList(1, 2, 3);        // [37, 1, 2, 3]
 
-### Imports/Export
-```javascript
-// basic exports
-// mathConstants.js
-export const pi = 3.14;
-export const exp = 2.7;
-export const alpha = 0.35;
+// call - function.call(thisArgv, argv1, argv2, ...)
+function greet() {
+  var reply = [this.person, 'Is An Awesome', this.role].join(' ');
+  console.log(reply);
+}
+var p = { person: 'Douglas Crockford', role: 'Javascript Developer' };
+greet.call(p); 
 
-// -------------
-
-// myFile.js
-import { pi, exp } from './mathConstants.js'; // Named import -- destructuring-like syntax
-console.log(pi) // 3.14
-console.log(exp) // 2.7
-
-// -------------
-
-// mySecondFile.js
-import * as constants from './mathConstants.js'; // Inject all exported values into constants variable
-console.log(constants.pi) // 3.14
-console.log(constants.exp) // 2.7
-
-// default imports
-// coolNumber.js
-const ultimateNumber = 42;
-export default ultimateNumber;
-
-// ------------
-
-// myFile.js
-import number from './coolNumber.js';
-// Default export, independently from its name, is automatically injected into number variable;
-console.log(number) // 42
-```
-
-### Class
-```javascript
-// before ES6
-var Person = function(name, age) {
+// call - chain constructor
+function Product(name, price) {
   this.name = name;
-  this.age = age;
+  this.price = price;
 }
-Person.prototype.stringSentence = function() {
-  return "Hello, my name is " + this.name + " and I'm " + this.age;
-}
-// after ES6
-class Person {
-  constructor(name, age) {
-    this.name = name;
-    this.age = age;
-  }
-
-  stringSentence() {
-    return "Hello, my name is " + this.name + " and I'm " + this.age;
-  }
+function Food(name, price) {
+  Product.call(this, name, price);
+  this.category = 'food';
 }
 
-// super
-// 1. super keyword must be used before the this keyword is used in constructor
-// 2. If the parent class have a method called X, you can use super.X() to call it in a child class.
-class Polygon {
-  constructor(height, width) {
-    this.name = 'Polygon';
-    this.height = height;
-    this.width = width;
-  }
-  getHelloPhrase() {
-    return `Hi, I am a ${this.name}`;
-  }
-}
-class Square extends Polygon {
-  constructor(length) {
-    super(length, length);
-    this.name = 'Square';
-    this.length = length;
-  }
-  getCustomHelloPhrase() {
-    const polygonPhrase = super.getHelloPhrase(); // accessing parent method with super.X() syntax
-    return `${polygonPhrase} with a length of ${this.length}`;
-  }
-  get area() {
-    return this.height * this.width;
-  }
-}
+// call - without thisArgv
+var sData = 'Wisen';
+function display() { console.log('sData value is %s ', this.sData); }
+display.call();
+
+// apply: function.call(thisArg, [argv, argv2, ...])
 ```
 
-### Async Await
+### Immediately-Invoked Function Expression (IIFE)
 ```javascript
-// await must be used in an async function
-async function getGithubUser(username) { 
-  const response = await fetch(`https://api.github.com/users/${username}`); 
-  return response.json();
-}
-getGithubUser('mbeaudru').then(user => console.log(user)).catch(err => console.log(err));
-
-// chain async/await
-async function getUser() { // The returned promise will be rejected!
-  throw "User not found !";
-}
-async function getAvatarByUsername(userId) => {
-  const user = await getUser(userId);
-  return user.avatar;
-}
-async function getUserAvatar(username) {
-  var avatar = await getAvatarByUsername(username);
-  return { username, avatar };
-}
-getUserAvatar('mbeaudru')
-  .then(res => console.log(res))
-  .catch(err => console.log(err)); // "User not found !"
-
-// chain await
-async function fetchPostById(postId) {
-  const token = (await fetch('token_url')).json().token;
-  const post = (await fetch(`/posts/${postId}?token=${token}`)).json();
-  const author = (await fetch(`/users/${post.authorId}`)).json();
-  post.author = author;
-  return post;
-}
-
-fetchPostById('gzIrzeo64')
-  .then(post => console.log(post))
-  .catch(err => console.log(err));
+(function(){ /* code */ }()); 
+(function(){ /* code */ })(); 
 ```
 
-### static
+### Inheritance
 ```javascript
-class Repo{
-  static getName() {
-    return "Repo name is modern-js-cheatsheet"
-  }
+// http://js-bits.blogspot.com/2010/08/javascript-inheritance-done-right.html
+function extend(base, sub) {
+
+  function surrogateCtor() {}
+  // Copy the prototype from the base to setup inheritance
+  surrogateCtor.prototype = base.prototype;
+  // Tricky huh?
+  sub.prototype = new surrogateCtor();
+  // The constructor property is set wrong (to the base constructor)
+  // with the above trick, let's fix it
+  sub.prototype.constructor = sub;
 }
-
-//Note that we did not have to create an instance of the Repo class
-console.log(Repo.getName()) 
-
-//Uncaught TypeError: repo.getName is not a function
-let r = new Repo();
-console.log(r.getName()) 
 ```
-
-
-
-
-
-
-
-
-
 
