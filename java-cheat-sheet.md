@@ -412,7 +412,7 @@ t.setPriority(2);
 ```
 
 ### Collections
-```
+```java
 // ArraryList, dynamic array, not synchronized
 ArrayList<Integer> arr = new ArrayList<Integer>(n);
 arrli.add(1);
