@@ -35,8 +35,7 @@ exports.age = 20;
 
 ### EventEmitter 
 ```javascript
-// Pattern 1: Return EventEmitter from a function
-
+// Pattern 1: Return EventEmitter from a function   
 var emitter = require('events').EventEmitter;
 function LoopProcessor(num) {
     var e = new emitter();
