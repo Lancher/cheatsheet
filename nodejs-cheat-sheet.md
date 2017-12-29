@@ -1,5 +1,6 @@
 ### Complete Node.js CheatSheet 
 [Complete Node.js CheatSheet](https://gist.github.com/LeCoupa/985b82968d8285987dc3)
+[Stream Handbook](https://github.com/substack/stream-handbook)
 
 
 ### HTTP Server
