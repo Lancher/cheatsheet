@@ -75,10 +75,10 @@ console.log(z); // { a: 3, b: 4 }
 
 ### Promise
 ```javascript
-const fetchingPosts = new Promise((res, rej) => {
+const fetchingPosts = new Promise((resolve, reject) => {
   $.get("/posts")
-    .done(posts => res(posts))
-    .fail(err => rej(err));
+    .done(posts => resolve(posts))
+    .fail(err => reject(err));
 });
 
 fetchingPosts
