@@ -208,12 +208,19 @@ var expect = require('chai').expect,
     mockery = require('mockery');
 ```
 
+### Debugging in 2017 with Node.js
+[Debugging in 2017 with Node.js](https://www.youtube.com/watch?v=Xb_0awoShR8)
 
+```javascript
+>> node --inspect-brk hello.js 
+```
 
+### Simple Guide to Finding a JavaScript Memory Leak in Node.js
+[Simple Guide to Finding a JavaScript Memory Leak in Node.js](https://www.alexkras.com/simple-guide-to-finding-a-javascript-memory-leak-in-node-js/)
 
-
-
-
+```javascript
+>> node --expose-gc index.js
+```
 
 
 
