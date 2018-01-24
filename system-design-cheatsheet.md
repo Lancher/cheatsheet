@@ -42,7 +42,7 @@
 
 1. Traffic is light but data is more interesting.
 
-#### Scale:
+#### Harvard Web Scale:
 
 1. Watch the https://www.youtube.com/watch?v=-W9F__D3oY4.
 	* Vertical Scaling (one good expensive hardware)
@@ -59,11 +59,47 @@
 	* Load Balances to avoid single point failure with heatbeats sending between them.
 	* Partition (divide the users by name to different data centers)
 
+### Scalability for Dummies
 
+- __Part 1__
+	* Public servers should behind a load balancer.
+	* Each request should disrtibuted evenly to each application servers
+	* Session should be stored in a centralized data servers like redis or memcached
+- __Part 2 - MySQL__
+	* First, use master-slave replication and keep add RAMs
+	* Second, use "sharding", "denormalization" and SQL tuning"
+	* Finally, you might want to use NoSQL Database
+- __Part 2 - NoSQL__
+	* Use MongoDB or CouchDB
+	* But sooner your database will again be slower and slower. Then you need to introduce cache
+- __Part 3 - In-Memory Caches__
+	* Redis
+	* Memcached
+- __Part 3 - Cached Database Queries__
+	* Hash your query
+	* The issue is expiration. When a piece of objects changed, you need to delete al related values in cache
+- __Part 3 - Cached objects__
+	* Recommendation One !!!
+	* For exmaple, user sessions, fully reendered blod articles, activity streams, friend relations
+	* Redis: persistence and built-in data structures like set and list
+	* Memcached: Scaled like a charm
+- __Part 4 - Async__
+	* Stored pre-Rendered static HTML files
+	* RabbitMQ is one of systems to implement async processing
 
-
-
-
+### Sharding
+- __Advantages:__
+	* Data are denormalized (separate from their comments, blogs, email, media, etc)
+	* Data are parallelized across many physical instances
+	* Data are kept small (isolating data into smaller shards the data you are accessing is more likely to stay in cache)
+	* Data are more highly available
+	* It doesn't use replication (At that point read operations can be handled by the slaves, but all writes happen on the master.)
+- __Problems__:
+	* Rebalancing data (when a shard outgrows your storage and needs to be split?)
+	* Joining data from multiple shards (Thankfully, because of caching and fast networks this process is usually fast enough that your page load times can be excellent.)
+	* How do you partition your data in shards? (How to seperate your data)
+	* Less leverage (With sharding you are on your own becasue not so much tools)
+	* Implementing shards is not well supported ()
 
 
 

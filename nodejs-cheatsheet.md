@@ -113,3 +113,107 @@ readStream                      // reads current file
         console.log('done');
     });
 ```
+
+### The Node.js Way - Designing Singletons
+[The Node.js Way - Designing Singletons](http://fredkschott.com/post/2013/12/node-js-cookbook---designing-singletons/)
+```javascript
+/* a-singleton.js */
+
+// Private
+var x = require('x');
+var y = 'I am private';
+var z = true;
+
+function sum(num1, num2) {
+  return num1 + num2;
+}
+
+// Public
+var self = module.exports = {
+
+  someProperty: 'I am public',
+  
+  addFive: function addFive(num) {
+    return sum(num, 5);
+  },
+  
+  toggleZ: function toggleZ() {
+    return z = !z;
+  }
+  
+};
+
+/* app.js */
+ var singleton = require('./a-singleton');
+ console.log(singleton.x); // undefined (x is private)
+ console.log(singleton.sum(1,2)); // undefined (sum is private)
+ console.log(singleton.someProperty); // 'I am public'
+ console.log(singleton.toggleZ()); // false 
+ console.log(singleton.toggleZ()); // true (public functions can still reference private variables)
+```
+
+### The Node.js Way - Designing Constructors
+[The Node.js Way - Designing Constructors](http://fredkschott.com/post/2014/01/node-js-cookbook---constructors-and-custom-types/)
+```javascript
+/* User.js */
+
+// Private
+var userCount = 0;
+function depositeMinusFee(num1) {
+  return num1 - 0.1;
+}
+
+// Public
+module.exports = User;
+function User(n) {
+    this.id = userCount;
+    this.name = n;
+    this._paid = false;
+    this.balance = 0;
+    userCount++;
+}
+
+User.prototype.togglePaid = function() {
+  this._paid = !this._paid;
+};
+
+
+/* app.js */
+var User = require('./User');
+var bob = new User('Bob');
+var joe = new User('Joe');
+console.log(bob.balance);    // 99.9
+console.log(bob._paid);      // false (_paid is private; DON'T DO THIS!)
+```
+
+### The Node.js Way - Understanding Error-First Callbacks
+[The Node.js Way - Understanding Error-First Callbacks](http://fredkschott.com/post/2014/03/understanding-error-first-callbacks-in-node-js/)
+```javascript
+fs.readFile('/foo.txt', function(err, data) {
+  // If an error occurred, handle it (throw, propagate, etc)
+  if(err) {
+    console.log('Unknown Error');
+    return;
+  }
+  // Otherwise, log the file contents
+  console.log(data);
+});
+```
+
+### The Node.js Way - Testing Essentials
+[The Node.js Way - Testing Essentials](http://fredkschott.com/post/2014/05/nodejs-testing-essentials/)
+```javascript
+var expect = require('chai').expect,
+    sinon = require('sinon'),
+    mockery = require('mockery');
+```
+
+
+
+
+
+
+
+
+
+
