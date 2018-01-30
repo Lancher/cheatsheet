@@ -1,3 +1,8 @@
+# ES6
+
+[ES5 vs ES6](http://es6-features.org/#Constants)
+
+
 ### var, let, const
 ```javascript
 // let cannot be re-declared.
