@@ -1,2 +1,2 @@
 
-(Python Cheatsheet)[https://www.pythonsheets.com/]
+[Python Cheatsheet](https://www.pythonsheets.com/)
