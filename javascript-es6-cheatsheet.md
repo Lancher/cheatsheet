@@ -1,5 +1,6 @@
 # ES6
 
+[Modern Javascript Tutorial](https://javascript.info)  
 [ES5 vs ES6](http://es6-features.org/#Constants)
 
 
@@ -22,6 +23,22 @@ function myFunc() {
     console.log(this.myVar) // 1
   }, 0);
 } 
+
+// Arrow function does not has his own context, `this` will refer to the inherited function context (We do have to bind).
+function Button(){ 
+    this.clicked = false; 
+    this.click = () => {
+      this.clicked = true;
+    };
+} 
+
+// If arrow function is defined in object, it will  refer to some other function context (we need bind).
+var button = {
+    clicked: false,
+    click: () => {
+        this.clicked = true;
+    }; 
+}
 ```
 
 ### Default Parameter
@@ -81,14 +98,25 @@ console.log(z); // { a: 3, b: 4 }
 ### Promise
 ```javascript
 const fetchingPosts = new Promise((resolve, reject) => {
-  $.get("/posts")
-    .done(posts => resolve(posts))
-    .fail(err => reject(err));
+  setTimeout(() => {
+    if (Math.random() % 2 === 1) { resolve('Sucess'); }
+    else { reject("Failure"); }
+  }, 1000);
 });
 
-fetchingPosts
-  .then(posts => console.log(posts))
-  .catch(err => console.log(err));
+// put 2 callbacks into then()
+fetchingPosts.then((res) => {
+  console.log(res);
+}, (err) => {
+  console.log(err);
+});
+
+// put to then() and catch()
+fetchingPosts.then((res) => {
+  console.log(res);
+}).catch((err) => {
+  console.log(err);
+});
 ```
 
 ### String Template
@@ -146,6 +174,7 @@ var Person = function(name, age) {
 Person.prototype.stringSentence = function() {
   return "Hello, my name is " + this.name + " and I'm " + this.age;
 }
+
 // after ES6
 class Person {
   constructor(name, age) {
@@ -226,6 +255,40 @@ fetchPostById('gzIrzeo64')
   .catch(err => console.log(err));
 ```
 
+### Generator
+```javascript
+// Basics
+function *gen() {
+  yield "1";
+  yield "2";
+  yield "3";
+}
+var g = gen();
+g.next(); // {value: 1, done: false}
+
+
+// pass parameters to next
+// 1. Pass the parameter to next().
+// 2. suspend at yield and wait for next next() called.
+function *gen(s) {
+  
+  let second_next_pass_parameter = yield "1st yield" + s;
+  console.log(second_next_pass_parameter);
+  
+  let third_next_pass_parameter = yield "2rd yield" + s;
+  console.log(third_next_pass_parameter);
+  
+  let fourth_next_pass_parameter = yield "3, " + s;
+  console.log(fourth_next_pass_parameter);
+  
+}
+var g = gen('Hello');
+console.log(g.next('This will not be pass'));
+console.log(g.next('This is 2nd next'));
+console.log(g.next('This is 3rd next'));
+console.log(g.next('This is 4th next'));
+```
+
 ### static
 ```javascript
 class Repo{
@@ -242,7 +305,23 @@ let r = new Repo();
 console.log(r.getName()) 
 ```
 
+### get & set
+```javascript
+const numbers = {
+    arr: [1, 2, 3], 
+    get firstNinja(){
+      console.log("get index 0");
+      return this.arr[0];
+    },
+    set firstNinja(value){
+      console.log("set index 0");
+      this.arr[0] = value;
+  }
+};
 
+numbers.firstNinja // get index 0
+numbers.firstNinja = 100 // set index 0
+```
 
 
 

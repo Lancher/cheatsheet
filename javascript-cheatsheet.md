@@ -64,6 +64,8 @@ function Fruit(name, color) {
 }
 // inheriting all of Plant.prototype methods and properties.​
 Fruit.prototype = new Plant();
+// fix the broken connection
+Fruit.prototype.constructor = Fruit;
 ```
 
 ### Closure
@@ -205,3 +207,7 @@ function extend(base, sub) {
 }
 ```
 
+### Module
+```javascript
+
+```
