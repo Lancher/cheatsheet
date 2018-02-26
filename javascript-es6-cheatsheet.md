@@ -1,99 +1,303 @@
-# ES6
+## ES6
 
 [Modern Javascript Tutorial](https://javascript.info)  
 [ES5 vs ES6](http://es6-features.org/#Constants)
 
+## ECMAScript
 
-### var, let, const
-```javascript
-// let cannot be re-declared.
-// const cannot be re-assigned.
+ECMAScript is the standard. JavaScript is the implementation. ES 2015 is equal to ES6.
+
+```
+ES6 Code --> Babel --> ES5 Code 
 ```
 
-### Arrow function
-```javascript
-// implicit return
+## forEach
+
+Iterate through the array.
+
+```ecmascript 6
+var colors = ["javascript", "blue", "green"];
+colors.forEach(function(corlor) {
+    console.log(corlor);
+})
+```
+
+## map
+
+Iterate through array and return new elements into array.
+
+```ecmascript 6
+var numbers = [1, 2, 3];
+var double = numbers.map(function (number) { 
+    return number * 2;    
+});
+console.log(double);        // print `[2, 4, 6]`
+```
+
+## filter
+
+`filter` use true as condition to create new object and append to array.
+
+```ecmascript 6
+var fruits = [{type: "v"}];
+var filterFruits = fruits.filter(function(fruit) {
+	return fruit.type === "v";
+});
+console.log(filterFruits)       // print `[{type: "v"}]`
+```
+
+## find
+
+`find` will return the first match object.
+
+```ecmascript 6
+var users = [{name: "Alex"}, {name: "Steve"}];
+var findUser = users.filter(function(user) {
+	return user.name === "Steve";
+});
+console.log(findUser)
+```
+
+### every & some
+
+`every` will make sure that every are true.
+
+`some` if only one of object is true, then it is true.
+
+
+```ecmascript 6
+var computers = [
+    {type: "mac", ram: 16},
+    {type: "windows", ram: 8},
+    {type: "linux", ram: 32},
+]
+
+computers.every(function(computer) {
+    return computer.ram > 10;
+});     // `false` because not every computer's ram greater than 10g
+
+
+computers.some(function(computer) {
+    return computer.ram > 10;  
+});     // `true` because some computer's ram greater than 10g
+```
+
+### reduce
+
+`reduce` will take one start arg and deal with the value in the array.
+
+```ecmascript 6
+var numbers = [1, 2, 3, 4, 5];
+numbers.reduce(function(previous, number) {
+    return previous + number;
+}, 0);      // print `15`
+```
+
+```ecmascript 6
+var colors = [{color: "red"}, {color: "blue"}, {color: "yellow"}];
+colors.reduce(function(previous, color) {
+    return previous + color.color;
+}, []);      // print ["red", "blue", "yellow"]
+```
+
+## const & let & var
+
+`let` can't be re-declared and use to replace `var`.
+
+`const` can't be re-assigned.
+
+```ecmascript 6
+let i = 10;
+const array = [1, 2, 3];
+```
+
+### String Template
+
+`${}` inside \`\` will be treated as JavaScript expression.
+
+```ecmascript 6
+const condiment = "jam";
+const meal = "toast";
+console.log(`I like ${condiment} on ${meal}.`);
+
+const snacks = ['apples', 'bananas', 'cherries'];
+console.log(`I like ${snacks[0]} to snack on.`);
+```
+
+### Arrow Function
+
+As an implicit return or directly use return.
+
+```ecmascript 6
 const count_double = (x) => x * 2;
 
-// skip `that = this;`
-function myFunc() {
-  this.myVar = 0;
-  setTimeout(() => {
-    this.myVar++;
-    console.log(this.myVar) // 1
-  }, 0);
-} 
-
-// Arrow function does not has his own context, `this` will refer to the inherited function context (We do have to bind).
-function Button(){ 
-    this.clicked = false; 
-    this.click = () => {
-      this.clicked = true;
-    };
-} 
-
-// If arrow function is defined in object, it will  refer to some other function context (we need bind).
-var button = {
-    clicked: false,
-    click: () => {
-        this.clicked = true;
-    }; 
+const count_double = (x) => {
+    return x * 2;
 }
 ```
 
-### Default Parameter
-```javascript
-// no parameter provided or undefined parameter provided
+No argument you have still to put parenthesis.
+
+```ecmascript 6
+const count_double = () => 1000;
+```
+
+Arrow function does not has his own context, `this` will refer to the inherited function context (We don't have to bind).
+
+```ecmascript 6
+function Button(){ 
+    this.num = 100; 
+    this.click = () => {
+      this.num += 1;
+      console.log(this.num);
+    };
+} 
+let btn = new Button();
+let fn = btn.click;
+fn()    // print `101`
+```
+
+If arrow function is defined in object, it will  refer to some other function context (we need `bind` or `that = this`).
+
+```ecmascript 6
+var button = {
+    num: 100,
+    click: () => {
+        this.num += 1;
+    }
+};
+var fn = btn.button;
+fn();
+```
+
+## Enhanced Object Literal
+
+If you have the same key and value, you can just pass `key` name;
+
+```ecmascript 6
+let url = "https://www.google.com";
+
+let data = {url, method: "post"};
+```
+
+## Default Parameter
+
+No parameter provided or undefined parameter provided.
+
+```ecmascript 6
 function myFunc(x = 10) {
   return x;
 }
+myFunc();
 ```
 
-### Destructuring Objects
-```javascript
-// fetch object properties
+## Rest & Spread operator
+
+Unpack the array into elements.
+
+```ecmascript 6
+const arr1 = ["a", "b", "c"];
+const arr2 = [...arr1, "d", "e", "f"]; // ["a", "b", "c", "d", "e", "f"]
+```
+
+Compact elements into map or array.
+
+```ecmascript 6
+const { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
+console.log(x);     // 1
+console.log(y);     // 2
+console.log(z);     // { a: 3, b: 4 }
+```
+
+## Destructuring Objects
+
+Create a const reference to the properties.
+
+```ecmascript 6
 const person = {
   firstName: "Nick",
   lastName: "Anderson",
   age: 35,
   sex: "M"
 }
-const { age } = person;
+const { age, sex } = person;
+```
 
-// passing person
+Destruct arguments object.
+
+```ecmascript 6
+const person = {
+  firstName: "Nick",
+  lastName: "Anderson",
+  age: 35,
+  sex: "M"
+}
 function joinFirstLastName({ firstName, lastName }) {
   return firstName + '-' + lastName;
 }
-
-// destructuring 
-const myArray = ["a", "b", "c"];
-const [x, y] = myArray; // x is "a", y is "b"
+joinFirstLastName(person);
 ```
 
-### map/filter/reduce
-```javascript
-const numbers = [0, 1, 2, 3, 4, 5, 6];
+Destruct array.
 
-// map
-const doubledNumbers = numbers.map(n => n * 2); // [0, 2, 4, 6, 8, 10, 12]
-
-// filter
-const evenNumbers = numbers.filter(n => n % 2 === 0); // [0, 2, 4, 6]
-
-// reduce
-const sum = numbers.reduce((prev, next) => prev + next, 0); // 21
+```ecmascript 6
+const myArray = ["a", "b", "c", "d"];
+const [x, y] = myArray;             // x is "a", y is "b"
+const [x, y, ...rest] = myArray;    // x is "a", y is "b", rest is ["c", "d"]
 ```
 
-### Spread Operator
-```javascript
-const arr1 = ["a", "b", "c"];
-const arr2 = [...arr1, "d", "e", "f"]; // ["a", "b", "c", "d", "e", "f"]
+Destruct object in array.
 
-const { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
-console.log(x); // 1
-console.log(y); // 2
-console.log(z); // { a: 3, b: 4 }
-``` 
+```ecmascript 6
+const companies = [
+    {name: "Google", location: "Mountain View"},
+    {name: "Facebook", location: "Menlo Park"}
+]
+const [{googleLocation}] = companies;       // Mountain View
+```
+
+Destruct array in object.
+
+```ecmascript 6
+const Google = {
+    locations: ["Mountain View", "New York", "London"]
+}
+const { locations: [location] } = Google;
+console.log(location);      // Mountain View
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### Promise
 ```javascript
@@ -117,16 +321,6 @@ fetchingPosts.then((res) => {
 }).catch((err) => {
   console.log(err);
 });
-```
-
-### String Template
-```javascript
-const condiment = "jam";
-const meal = "toast";
-highlight`I like ${condiment} on ${meal}.`;
-
-const snacks = ['apples', 'bananas', 'cherries'];
-comma`I like ${snacks} to snack on.`;
 ```
 
 ### Imports/Export
@@ -256,7 +450,7 @@ fetchPostById('gzIrzeo64')
 ```
 
 ### Generator
-```javascript
+```ecmascript 6
 // Basics
 function *gen() {
   yield "1";
@@ -270,15 +464,16 @@ g.next(); // {value: 1, done: false}
 // pass parameters to next
 // 1. Pass the parameter to next().
 // 2. suspend at yield and wait for next next() called.
+
 function *gen(s) {
   
-  let second_next_pass_parameter = yield "1st yield" + s;
+  let second_next_pass_parameter = yield "1st yield, " + s;
   console.log(second_next_pass_parameter);
   
-  let third_next_pass_parameter = yield "2rd yield" + s;
+  let third_next_pass_parameter = yield "2nd yield, " + s;
   console.log(third_next_pass_parameter);
   
-  let fourth_next_pass_parameter = yield "3, " + s;
+  let fourth_next_pass_parameter = yield "3rd yield, " + s;
   console.log(fourth_next_pass_parameter);
   
 }
@@ -322,11 +517,3 @@ const numbers = {
 numbers.firstNinja // get index 0
 numbers.firstNinja = 100 // set index 0
 ```
-
-
-
-
-
-
-
-

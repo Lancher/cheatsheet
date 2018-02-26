@@ -324,9 +324,9 @@ console.log(greeting);              // print `global greeting`
 
 ## Closure
 
-When function `show()` is called, it create a new `execution context`. When function `show()` return, the `execution 
-context` is popped from the stack, but the variable is still in the memory. The function `showName()` still can refer
-to the `show() execution context`.
+When function `show()` is called, it create a new `show execution context`. When function `show()` return, the
+`show execution context` is popped from the stack, but the variable is still in the memory. The function `showName()` still can refer
+to the `show() execution context` because of `scope chain`.
 
 - The inner function can access outer function's variables.
 - The outer function must be called
