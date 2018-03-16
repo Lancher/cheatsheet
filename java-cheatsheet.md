@@ -1,3 +1,6 @@
+
+https://www.udemy.com/java-in-depth-become-a-complete-java-engineer/
+
 ### Run .java and compress .jar
 ```bash
 >> javac One.java                           // create One.class
@@ -378,6 +381,9 @@ class MyException extend Exception {
 ```
 
 ### MultiThreading
+
+http://www.vogella.com/tutorials/JavaConcurrency/article.html
+
 ```java
 // extending the Thread class 
 class MyThread extends Thread {

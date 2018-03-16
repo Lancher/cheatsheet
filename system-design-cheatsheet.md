@@ -1,8 +1,10 @@
 
-# System Desgin 🦄
+# System Design 🦄
 
-- https://www.mitbbs.com/article_t/JobHunting/32777529.html
-- https://www.youtube.com/watch?v=-W9F__D3oY4
+[System Design MitBBS](https://www.mitbbs.com/article_t/JobHunting/32777529.html)  
+[Harvard Web Scaling](https://www.youtube.com/watch?v=-W9F__D3oY4)   
+[MIT](https://pdos.csail.mit.edu/6.824/schedule.html)
+[How to Learn MIT](https://www.zhihu.com/question/29597104)
 
 ## Shorten Url Service
 
@@ -11,7 +13,7 @@
 1. Shorten url.
 2. Redirect shorten url to original url.
 3. Custom url.
-4. Analystic url.
+4. Analytic url.
 5. Automatic url expiration.
 6. Manual url removal.
 7. Provide Web UI or API.
@@ -26,7 +28,7 @@
 5. 6 BN urls in 5 years.
 6. 500 bytes per url and 6 bytes per shorten url
 7. 3TBs for all url, 36GBs for all shorten url
-8. Data wriiten to disk per sec: 40 * (500 + 6) = 20k
+8. Data written to disk per sec: 40 * (500 + 6) = 20k
 9. Data read from disk per sec: 380 * (500 + 6) = 180k
 
 #### Abstract Layer:
@@ -42,7 +44,7 @@
 
 1. Traffic is light but data is more interesting.
 
-#### Harvard Web Scale:
+## Harvard Web Scale:
 
 1. Watch the https://www.youtube.com/watch?v=-W9F__D3oY4.
 	* Vertical Scaling (one good expensive hardware)
@@ -59,7 +61,7 @@
 	* Load Balances to avoid single point failure with heatbeats sending between them.
 	* Partition (divide the users by name to different data centers)
 
-### Scalability for Dummies
+## Scalability for Dummies
 
 - __Part 1__
 	* Public servers should behind a load balancer.
@@ -80,7 +82,7 @@
 	* The issue is expiration. When a piece of objects changed, you need to delete al related values in cache
 - __Part 3 - Cached objects__
 	* Recommendation One !!!
-	* For exmaple, user sessions, fully reendered blod articles, activity streams, friend relations
+	* For exmaple, user sessions, fully rendered bold articles, activity streams, friend relations
 	* Redis: persistence and built-in data structures like set and list
 	* Memcached: Scaled like a charm
 - __Part 4 - Async__
@@ -88,6 +90,7 @@
 	* RabbitMQ is one of systems to implement async processing
 
 ### Sharding
+
 - __Advantages:__
 	* Data are denormalized (separate from their comments, blogs, email, media, etc)
 	* Data are parallelized across many physical instances
@@ -100,6 +103,103 @@
 	* How do you partition your data in shards? (How to seperate your data)
 	* Less leverage (With sharding you are on your own becasue not so much tools)
 	* Implementing shards is not well supported ()
+
+
+## How to Design a Distributed System
+
+### 4S
+
+- __Scenario__:
+    * Ask features ?
+    * Ask read/write query per second ?
+    * Ask daily active user ?
+    * Ask peak Daily Active User ?
+    * Web server can handle 1K QPS.
+    * SQL Database can handle 1K QPS.
+    * NoSQL Database (MongoDB / Cassandra) can handle 10k QPS.
+    * NoSQL Database (Redis / Memcached) can handle 1M QPS.
+- __Service__:
+    * Which service we have to implement ?
+    * Register/Login
+    * Tweet / News Feed
+- __Storage__:
+    * SQL, NoSQL, and File System
+    * Media --> File System
+    * All other service --> SQL/NoSQL
+    * Pull Model
+- __Scale__:
+    * Sharding / Optimize / Special Case
+    * Optimize
+    * Maintenance (Robust, Scalability) 
+    
+
+### Cache
+
+[Redis v.s. Memcached](https://stackoverflow.com/questions/10558465/memcached-vs-redis)
+
+### SQL & NoSQL
+
+In most of time, either NoSQL or MySQL is fine.
+
+NoSQL can support transaction.
+
+Less Join, more fast.
+
+SQL add column is a disaster.
+
+### Cassandra
+
+- __Row key__: for shading, cannot range query
+- __Column Key__: can do the range query
+
+### Sharding
+
+Vertical Sharding:
+- Split columns to different databases.
+- The problem is still single point failure.
+
+Horizontal Sharding:
+- By user_id % 10 to different machines
+- There is still a problem that we need 11 machines, it might happen data inconsistent.
+- When adding new machine, select most 2 greatest percentage, (33% + 33%) / 3 = 22%.
+
+
+### Consistent Hashing
+
+If there is 3 machines, each is 33%. When adding new machine, select most 2 greatest percentage, (33% + 33%) / 3 = 22%.
+- Each loading is not the same.
+- Only two machine need to do migration.
+
+### Replica & Backup
+
+`Replica` is that when you are writing disks, it will write to multiple machines simultaneously.
+
+`Backup` is periodically store to disk.
+
+### MySQL Replica
+
+Use `Master` to write data and `Slave` to read data (Raft). 
+
+Slave might have some delays.
+
+### NoSQL Replica
+
+Use `consistent hasing` to store 3 copy.
+
+### Peer 2 Peer (BitComet, Cassandra)
+
+- Advantage: one down, other still work
+- Disadvantage: machines have to be consistent
+
+### Master Slave
+
+- Simple Design
+- Data will be much more easier to be consistent
+
+
+
+
+
 
 
 
