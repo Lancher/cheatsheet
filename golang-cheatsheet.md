@@ -1,4 +1,9 @@
 
+## Go Materials
+
+`go rpc`: https://pdos.csail.mit.edu/6.824/notes/l-rpc.txt  
+`go faq`: https://pdos.csail.mit.edu/6.824/papers/tour-faq.txt
+
 ## Go Command Tool
 
 `go build`: Compiles a bunch of go source code files to a executable.  
