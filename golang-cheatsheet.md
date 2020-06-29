@@ -348,7 +348,7 @@ Use `select` to monitor asychronous
 type string_slice [] string
 ```
 
-# Type as Callback function
+## Type as Callback function
 
 ```
 type foo func(string, string) string
