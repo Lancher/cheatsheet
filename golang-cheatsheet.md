@@ -652,6 +652,31 @@ fruits := []string{"peach", "banana", "kiwi"}
 sort.Sort(byLength(fruits))
 ```
 
+// sort slice
+sort.Slice(s[:], func(i, j int) bool {
+	return s[i].Lo < s[j].Lo
+})
+
+// sort by lex or dict order
+sort.Strings(res)
+sort.Ints(s)
+
+//
+family := []struct {
+	Name string
+	Age  int
+}{
+	{"Alice", 23},
+	{"David", 2},
+	{"Eve", 2},
+	{"Bob", 25},
+}
+
+// Sort by age, keeping original order or equal elements.
+sort.SliceStable(family, func(i, j int) bool {
+	return family[i].Age < family[j].Age
+})
+
 ## Panic
 
 Mostly we use it to fail fast on errors that shouldn’t occur during normal operation.
