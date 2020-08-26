@@ -22,6 +22,15 @@ Two types of packages:
 - Executable Package (`package main`) and must have function `main()`.
 - Reusable Package (`package xxxxx`).
 
+## Common Import
+
+```
+import "math"
+import "strings"
+import "sort"
+import "strconv"
+```
+
 ## Variables
 
 Use `var` to initialize variables.
@@ -35,6 +44,7 @@ var i int = 0
 ```
 card := "Hello World"
 card = "New Hello World"
+a, b, c := 1, 2, 3
 ```
 
 constant string
@@ -62,6 +72,18 @@ for {
 }
 ```
 
+## Division
+
+```
+ fmt.Println(10 / 3)  // = 3
+```
+
+## Min/Max
+
+```
+Use if else to find min/max
+```
+
 ## Array & Slice & Map
 
 `Array` is fixed length array:
@@ -78,6 +100,55 @@ b := [...]string{"Penn", "Teller"}
 letters := []string{"a", "b", "c", "d"}
 s = make([]byte, 5, 5)
 s := make([]byte, 5)
+```
+
+2D slice:
+
+```
+2d := [][]string{}
+2d = append(2d, []string{"a", "b"})
+```
+
+1D slice to 2D slice:
+
+```
+d1 := []string{"a", "b", "c", "d", "e"}
+d2 := [][]string{}
+d2 = append(d2, d1)
+fmt.Println("Original 2D Array")
+fmt.Println(d2)
+fmt.Println("Original 2D Array - Update 1D 0 Element")
+d1[0] = "1"
+fmt.Println(d1)
+fmt.Println(d2)
+fmt.Println("Original 2D Array - Delete 1D Last Element")
+d1 = d1[:len(d1)-1]
+fmt.Println(d2)
+fmt.Println("Original 2D Array - Update 1D 3th Element")
+d1[3] = "?"
+fmt.Println(d2)
+fmt.Println("Original 2D Array - Append 1D Last Element")
+d1 = append(d1, "@")
+fmt.Println(d2)
+
+// output
+Original 2D Array
+[[a b c d e]]
+Original 2D Array - Update 1D 0 Element
+[1 b c d e]
+[[1 b c d e]]
+Original 2D Array - Delete 1D Last Element
+[[1 b c d e]]
+Original 2D Array - Update 1D 3th Element
+[[1 b c ? e]]
+Original 2D Array - Append 1D Last Element
+[[1 b c ? @]]
+```
+
+Pass slice as argument:
+
+```
+https://nanxiao.gitbooks.io/golang-101-hacks/content/posts/pass-slice-as-a-function-argument.html
 ```
 
 Get the length and capacity of slice & array:
@@ -119,6 +190,13 @@ m := make(map[string]int)
 n := map[string]int{"foo": 1, "bar": 2}
 ```
 
+Slice in a map:
+
+```
+m := make(map[string][]string)
+m["yes"] = append(m["yes"], "no")
+```
+
 Delete a key in map:
 
 ```
@@ -134,6 +212,16 @@ if value, ok := dict["baz"]; ok {
     fmt.Println("key not found")
 }
 ```
+
+## Comparison
+
+Check if a number between 100 and 1001
+
+```
+if 100 <= a && a <= 1001 { fmtPrintln("between 100~1001") }
+```
+
+
 
 ## Range
 
@@ -231,8 +319,8 @@ type rect struct {
     width, height int
 }
 
-func (r *rect) area() int {
-    return r.width * r.height
+func (r *rect) area() (int, int) {
+    return r.width * r.height, -1
 }
 
 func (r rect) perim() int {
@@ -599,3 +687,7 @@ buffer.WriteString("a")
 buffer.WriteString("n")
 fmt.Println(buffer.String())
 ```
+
+# Substring
+str := "Hello World"
+subStr := str[1:4]
